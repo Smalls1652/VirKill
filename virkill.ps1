@@ -9,8 +9,6 @@ $downloadlinks = @(
                         "http://www.bleepingcomputer.com/download/rkill/dl/10/",
                         "http://www.bleepingcomputer.com/download/minitoolbox/dl/65/"
 						"http://www.bleepingcomputer.com/download/junkware-removal-tool/dl/293/"
-						"http://www.bleepingcomputer.com/download/hijackthis/dl/89/"
-						"http://www.bleepingcomputer.com/download/emsisoft-emergency-kit/dl/102/"
                 )
                                        
 $downloadparse = @(
@@ -19,8 +17,6 @@ $downloadparse = @(
                         'http://download.bleepingcomputer.com/dl/+[\w-]+(/[\w- ./?%&=]*)*/rkill.exe',
                         'http://download.bleepingcomputer.com/dl/+[\w-]+(/[\w- ./?%&=]*)*/MiniToolBox.exe'
                         'http://download.bleepingcomputer.com/dl/+[\w-]+(/[\w- ./?%&=]*)*/JRT.exe'
-						'http://download.bleepingcomputer.com/dl/+[\w-]+(/[\w- ./?%&=]*)*/HijackThis.exe'
-						'http://dl.emsisoft.com/EmsisoftEmergencyKit.exe'
 						)
  
 $downloadname = @(
@@ -29,8 +25,6 @@ $downloadname = @(
                         "rkill",
                         "MiniToolBox"
 						"JRT"
-						"HijackThis"
-						"EmisoftEmergencyKit"
                 )
  
 $dlinksarraylength = $downloadlinks.length
