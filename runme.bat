@@ -4,8 +4,8 @@
 
 title VirKill Downloader
 
-Ping www.google.com -n 1 >NUL
-if errorlevel 1 goto :copyfiles
+::Ping www.google.com -n 1 >NUL
+::if errorlevel 1 goto :copyfiles
 
 powershell.exe -ExecutionPolicy Bypass -File virkill.ps1
 
