@@ -19,15 +19,15 @@ $downloadlinks = @(
                         "http://www.bleepingcomputer.com/download/adwcleaner/dl/125/",
                         "http://www.bleepingcomputer.com/download/rkill/dl/10/",
                         "http://www.bleepingcomputer.com/download/minitoolbox/dl/65/"
-						"http://www.bleepingcomputer.com/download/junkware-removal-tool/dl/293/"
+			"http://www.bleepingcomputer.com/download/junkware-removal-tool/dl/293/"
                 )
                                        
 $downloadparse = @(
-                        'http://download.bleepingcomputer.com/dl/+[\w-]+(/[\w- ./?%&=]*)*/ComboFix.exe',
-                        'http://download.bleepingcomputer.com/dl/+[\w-]+(/[\w- ./?%&=]*)*/AdwCleaner.exe',
-                        'http://download.bleepingcomputer.com/dl/+[\w-]+(/[\w- ./?%&=]*)*/rkill.exe',
-                        'http://download.bleepingcomputer.com/dl/+[\w-]+(/[\w- ./?%&=]*)*/MiniToolBox.exe'
-                        'http://download.bleepingcomputer.com/dl/+[\w-]+(/[\w- ./?%&=]*)*/JRT.exe'
+                        'https://download.bleepingcomputer.com/dl/+[\w-]+(/[\w- ./?%&=]*)*/ComboFix.exe',
+                        'https://download.bleepingcomputer.com/dl/+[\w-]+(/[\w- ./?%&=]*)*/AdwCleaner.exe',
+                        'https://download.bleepingcomputer.com/dl/+[\w-]+(/[\w- ./?%&=]*)*/rkill.exe',
+                        'https://download.bleepingcomputer.com/dl/+[\w-]+(/[\w- ./?%&=]*)*/MiniToolBox.exe'
+                        'https://download.bleepingcomputer.com/dl/+[\w-]+(/[\w- ./?%&=]*)*/JRT.exe'
 						)
  
 $downloadname = @(
