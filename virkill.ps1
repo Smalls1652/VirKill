@@ -19,7 +19,9 @@ $downloadlinks = @(
                         "http://www.bleepingcomputer.com/download/adwcleaner/dl/125/",
                         "http://www.bleepingcomputer.com/download/rkill/dl/10/",
                         "http://www.bleepingcomputer.com/download/minitoolbox/dl/65/"
-			"http://www.bleepingcomputer.com/download/junkware-removal-tool/dl/293/"
+						"http://www.bleepingcomputer.com/download/junkware-removal-tool/dl/293/"
+						"http://www.bleepingcomputer.com/download/hijackthis/dl/89/"
+						"http://www.bleepingcomputer.com/download/emsisoft-emergency-kit/dl/102/"
                 )
                                        
 $downloadparse = @(
@@ -28,6 +30,8 @@ $downloadparse = @(
                         'https://download.bleepingcomputer.com/dl/+[\w-]+(/[\w- ./?%&=]*)*/rkill.exe',
                         'https://download.bleepingcomputer.com/dl/+[\w-]+(/[\w- ./?%&=]*)*/MiniToolBox.exe'
                         'https://download.bleepingcomputer.com/dl/+[\w-]+(/[\w- ./?%&=]*)*/JRT.exe'
+						'https://download.bleepingcomputer.com/dl/+[\w-]+(/[\w- ./?%&=]*)*/HijackThis.exe'
+						'http://dl.emsisoft.com/EmsisoftEmergencyKit.exe'
 						)
  
 $downloadname = @(
@@ -36,6 +40,8 @@ $downloadname = @(
                         "rkill",
                         "MiniToolBox"
 						"JRT"
+						"HijackThis"
+						"EmisoftEmergencyKit"
                 )
  
 $dlinksarraylength = $downloadlinks.length
@@ -82,4 +88,3 @@ Write-host "-------------------"
 
 $mbamdefilename = "$storageDir\files\mbam-rules.exe"
 $webclient.DownloadFile('http://data.mbamupdates.com/tools/mbam-rules.exe', $mbamdefilename)
-
