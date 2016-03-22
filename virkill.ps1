@@ -2,6 +2,17 @@ $scriptpath = $MyInvocation.MyCommand.Path
 $storageDir = Split-Path $scriptpath
 
 $webclient = New-Object System.Net.WebClient
+
+$error.clear()
+	
+$webclient.DownloadString("http://www.google.com") | Out-Null
+
+if($error) { 
+cls
+Write-Warning "Something went wrong with the download."
+Write-Warning "Copying current local files."
+exit
+} 
  
 $downloadlinks = @(
                         "http://www.bleepingcomputer.com/download/combofix/dl/12/",
