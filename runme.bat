@@ -4,6 +4,8 @@
 
 title VirKill Downloader
 
+IF NOT EXIST ".\files" ( mkdir ".\files" )
+
 ::Ping www.google.com -n 1 >NUL
 ::if errorlevel 1 goto :copyfiles
 
