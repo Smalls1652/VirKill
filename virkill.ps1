@@ -14,6 +14,7 @@ Write-Warning "Copying current local files."
 exit
 } 
  
+#Begin BleepingComputer list.
 $downloadlinks = @(
                         "http://www.bleepingcomputer.com/download/combofix/dl/12/",
                         "http://www.bleepingcomputer.com/download/adwcleaner/dl/125/",
@@ -21,7 +22,7 @@ $downloadlinks = @(
                         "http://www.bleepingcomputer.com/download/minitoolbox/dl/65/",
 						"http://www.bleepingcomputer.com/download/junkware-removal-tool/dl/293/",
 						"http://www.bleepingcomputer.com/download/hijackthis/dl/89/"
-                )
+					)
                                        
 $downloadparse = @(
                         'https://download.bleepingcomputer.com/dl/+[\w-]+(/[\w- ./?%&=]*)*/ComboFix.exe',
@@ -30,7 +31,7 @@ $downloadparse = @(
                         'https://download.bleepingcomputer.com/dl/+[\w-]+(/[\w- ./?%&=]*)*/MiniToolBox.exe',
                         'https://download.bleepingcomputer.com/dl/+[\w-]+(/[\w- ./?%&=]*)*/JRT.exe',
 						'https://download.bleepingcomputer.com/dl/+[\w-]+(/[\w- ./?%&=]*)*/HijackThis.exe'
-						)
+					)
  
 $downloadname = @(
                         "ComboFix",
@@ -39,31 +40,64 @@ $downloadname = @(
                         "MiniToolBox",
 						"JRT",
 						"HijackThis"
-                )
+					)
  
 $dlinksarraylength = $downloadlinks.length
 $dlinksarraylength--
- 
+#End BleepingComputer list.
+
+#Begin Custom Download list.
+#Only include static links.
+$customdownloadlinks = @(
+							'http://dl.emsisoft.com/EmsisoftEmergencyKit.exe',
+							'https://downloads.malwarebytes.org/file/mbam_current/',
+							'http://data.mbamupdates.com/tools/mbam-rules.exe'
+						)
+$customdownloadname = @(
+							'EmsisoftEmergencyKit',
+							'Malwarebytes',
+							'Malwarebytes Defintions'
+						)
+
+$customdownloadexe = @(
+							'EmsisoftEmergencyKit',
+							'mbam-setup',
+							'mbam-rules'
+						)
+$customdownloadlength = $customdownloadlinks.length
+$customdownloadlength--
+#End Custom Download list.
+
 $i = 0
- 
+$s = 0
  
 while ($i -le $dlinksarraylength)
 		{
                 $dlink = $downloadlinks[$i]
                 $dname = $downloadname[$i]
                 $dparse = $downloadparse[$i]
-               
-                $htmlfile = "$storageDir\Download.html"
-                $webclient.DownloadFile($dlink,$htmlfile)
-               
-                #$purl= $(.\sed.exe -ne $dparse $storageDir\Download.html)
-				#Used to use a windows sed.exe file to do this, but now it's limited to select-string
-				#This will save on dependencies and headaches.
-				
-				$purl = select-string -Path $storageDir\Download.html -Pattern $dparse | % { $_.Matches} | % { $_.Value}
-				
+
                 Write-host "Downloading $dname"
                 Write-host "-------------------"
+               
+			   $dexist = Test-Path $storageDir\files\$dname.exe
+			   if ($dexist -eq "True")
+				{
+					$dhours = New-Timespan -Start (dir $storageDir\files\$dname.exe).LastWriteTime | Select -ExpandProperty Hours
+					if ($dhours -le 6)
+					{
+					Write-host "Recently updated. ($dhours hour(s) ago)"
+					Write-host "Skipping."
+					Write-host
+					$i++
+					continue
+					}
+				}
+				$htmlfile = "$storageDir\Download.html"
+                $webclient.DownloadFile($dlink,$htmlfile)
+				
+				$purl = select-string -Path $storageDir\Download.html -Pattern $dparse | % { $_.Matches} | % { $_.Value}
+			
                
                 $dfilename = "$storageDir\files\$dname.exe"
                 $webclient.DownloadFile($purl,$dfilename)
@@ -72,21 +106,32 @@ while ($i -le $dlinksarraylength)
                 $i++
         }
 
-Write-host "Downloading EmsisoftEmergencyKit"
-Write-host "-------------------"
+while ($s -le $customdownloadlength)
+		{
+                $dlink = $customdownloadlinks[$s]
+                $dname = $customdownloadname[$s]
+                $dexe = $customdownloadexe[$s]
 
-$emsifilename = "$storageDir\files\EmsisoftEmergencyKit.exe"
-$webclient.DownloadFile('http://dl.emsisoft.com/EmsisoftEmergencyKit.exe', $emsifilename)
-
-Write-host "Downloading Malwarebytes"
-Write-host "-------------------"
-
-$mbamfilename = "$storageDir\files\mbam-setup.exe"
-$webclient.DownloadFile('https://downloads.malwarebytes.org/file/mbam_current/', $mbamfilename)
-
-Write-host "Downloading Malwarebytes Defintions"
-Write-host "-------------------"
-
-$mbamdefilename = "$storageDir\files\mbam-rules.exe"
-$webclient.DownloadFile('http://data.mbamupdates.com/tools/mbam-rules.exe', $mbamdefilename)
-
+				Write-host
+                Write-host "Downloading $dname"
+                Write-host "-------------------"
+               
+			   $dexist = Test-Path $storageDir\files\$dexe.exe
+			   if ($dexist -eq "True")
+				{
+					$dhours = New-Timespan -Start (dir $storageDir\files\$dexe.exe).LastWriteTime | Select -ExpandProperty Hours
+					if ($dhours -le 24)
+					{
+					Write-host "Recently updated. ($dhours hour(s) ago)"
+					Write-host "Skipping."
+					Write-host
+					$s++
+					continue
+					}
+				}
+               
+                $dfilename = "$storageDir\files\$dexe.exe"
+                $webclient.DownloadFile($dlink,$dfilename)
+               
+                $s++
+        }
