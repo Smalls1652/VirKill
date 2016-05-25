@@ -2,7 +2,7 @@
 @cd /d "%~dp0"
 @echo off
 
-title VirKill Downloader
+title VirKill Downloader (Loading)
 
 @setlocal enableextensions
 @cd /d "%~dp0"
@@ -13,6 +13,8 @@ set onlyupdate=0
 set onlycopy=0
 
 :askthis
+
+title VirKill Downloader
 
 echo VirKill Menu
 echo.
@@ -47,7 +49,7 @@ goto askthis
 :updatefiles
 powershell.exe -ExecutionPolicy Bypass -File virkill.ps1
 
-If %onlyupdate% EQU 1 ( cls
+If %onlyupdate% EQU 1 ( echo.
 						echo Files have been updated.
 						echo.
 						set onlyupdate=0
