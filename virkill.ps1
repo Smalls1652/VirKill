@@ -18,30 +18,27 @@ $downloadlinks = @(
                         "http://www.bleepingcomputer.com/download/combofix/dl/12/",
                         "http://www.bleepingcomputer.com/download/adwcleaner/dl/125/",
                         "http://www.bleepingcomputer.com/download/rkill/dl/10/",
-                        "http://www.bleepingcomputer.com/download/minitoolbox/dl/65/"
-						"http://www.bleepingcomputer.com/download/junkware-removal-tool/dl/293/"
+                        "http://www.bleepingcomputer.com/download/minitoolbox/dl/65/",
+						"http://www.bleepingcomputer.com/download/junkware-removal-tool/dl/293/",
 						"http://www.bleepingcomputer.com/download/hijackthis/dl/89/"
-						"http://www.bleepingcomputer.com/download/emsisoft-emergency-kit/dl/102/"
                 )
                                        
 $downloadparse = @(
                         'https://download.bleepingcomputer.com/dl/+[\w-]+(/[\w- ./?%&=]*)*/ComboFix.exe',
                         'https://download.bleepingcomputer.com/dl/+[\w-]+(/[\w- ./?%&=]*)*/AdwCleaner.exe',
                         'https://download.bleepingcomputer.com/dl/+[\w-]+(/[\w- ./?%&=]*)*/rkill.exe',
-                        'https://download.bleepingcomputer.com/dl/+[\w-]+(/[\w- ./?%&=]*)*/MiniToolBox.exe'
-                        'https://download.bleepingcomputer.com/dl/+[\w-]+(/[\w- ./?%&=]*)*/JRT.exe'
+                        'https://download.bleepingcomputer.com/dl/+[\w-]+(/[\w- ./?%&=]*)*/MiniToolBox.exe',
+                        'https://download.bleepingcomputer.com/dl/+[\w-]+(/[\w- ./?%&=]*)*/JRT.exe',
 						'https://download.bleepingcomputer.com/dl/+[\w-]+(/[\w- ./?%&=]*)*/HijackThis.exe'
-						'http://dl.emsisoft.com/EmsisoftEmergencyKit.exe'
 						)
  
 $downloadname = @(
                         "ComboFix",
                         "ADWCleaner",
                         "rkill",
-                        "MiniToolBox"
-						"JRT"
+                        "MiniToolBox",
+						"JRT",
 						"HijackThis"
-						"EmisoftEmergencyKit"
                 )
  
 $dlinksarraylength = $downloadlinks.length
@@ -63,8 +60,8 @@ while ($i -le $dlinksarraylength)
 				#Used to use a windows sed.exe file to do this, but now it's limited to select-string
 				#This will save on dependencies and headaches.
 				
-				$purl = select-string -Path $storageDir\Download.html -Pattern $dparse | % { $_.Matches} | % { $_.Value} | Select -Skip 1
-               
+				$purl = select-string -Path $storageDir\Download.html -Pattern $dparse | % { $_.Matches} | % { $_.Value}
+				
                 Write-host "Downloading $dname"
                 Write-host "-------------------"
                
@@ -74,8 +71,12 @@ while ($i -le $dlinksarraylength)
                
                 $i++
         }
-		
-$mbamweb = New-Object System.Net.WebClient
+
+Write-host "Downloading EmsisoftEmergencyKit"
+Write-host "-------------------"
+
+$emsifilename = "$storageDir\files\EmsisoftEmergencyKit.exe"
+$webclient.DownloadFile('http://dl.emsisoft.com/EmsisoftEmergencyKit.exe', $emsifilename)
 
 Write-host "Downloading Malwarebytes"
 Write-host "-------------------"
@@ -88,3 +89,4 @@ Write-host "-------------------"
 
 $mbamdefilename = "$storageDir\files\mbam-rules.exe"
 $webclient.DownloadFile('http://data.mbamupdates.com/tools/mbam-rules.exe', $mbamdefilename)
+
