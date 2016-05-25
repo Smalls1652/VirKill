@@ -1,3 +1,9 @@
+param(
+	[bool]$force	
+	)
+
+$host.ui.RawUI.WindowTitle = "VirKill"
+
 $scriptpath = $MyInvocation.MyCommand.Path
 $storageDir = Split-Path $scriptpath
 
@@ -76,11 +82,16 @@ while ($i -le $dlinksarraylength)
                 $dlink = $downloadlinks[$i]
                 $dname = $downloadname[$i]
                 $dparse = $downloadparse[$i]
+				
+				$host.ui.RawUI.WindowTitle = "VirKill (Downloading $dname)"
 
+				Write-host
                 Write-host "Downloading $dname"
                 Write-host "-------------------"
                
 			   $dexist = Test-Path $storageDir\files\$dname.exe
+               if ($force -ne "False")
+               {
 			   if ($dexist -eq "True")
 				{
 					$dhours = New-Timespan -Start (dir $storageDir\files\$dname.exe).LastWriteTime | Select -ExpandProperty Hours
@@ -93,16 +104,17 @@ while ($i -le $dlinksarraylength)
 					continue
 					}
 				}
+                }
 				$htmlfile = "$storageDir\Download.html"
                 $webclient.DownloadFile($dlink,$htmlfile)
 				
 				$purl = select-string -Path $storageDir\Download.html -Pattern $dparse | % { $_.Matches} | % { $_.Value}
 			
-               
+				
                 $dfilename = "$storageDir\files\$dname.exe"
                 $webclient.DownloadFile($purl,$dfilename)
                 Remove-Item "$storageDir\Download.html"
-               
+				
                 $i++
         }
 
@@ -111,12 +123,16 @@ while ($s -le $customdownloadlength)
                 $dlink = $customdownloadlinks[$s]
                 $dname = $customdownloadname[$s]
                 $dexe = $customdownloadexe[$s]
-
+				
+				$host.ui.RawUI.WindowTitle = "VirKill (Downloading $dname)"
+				
 				Write-host
                 Write-host "Downloading $dname"
                 Write-host "-------------------"
                
 			   $dexist = Test-Path $storageDir\files\$dexe.exe
+               if ($force -ne "False")
+               {
 			   if ($dexist -eq "True")
 				{
 					$dhours = New-Timespan -Start (dir $storageDir\files\$dexe.exe).LastWriteTime | Select -ExpandProperty Hours
@@ -129,7 +145,7 @@ while ($s -le $customdownloadlength)
 					continue
 					}
 				}
-               
+				}
                 $dfilename = "$storageDir\files\$dexe.exe"
                 $webclient.DownloadFile($dlink,$dfilename)
                
