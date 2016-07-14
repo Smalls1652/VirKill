@@ -60,7 +60,7 @@ while ($i -le $dlinksarraylength)
 				#Used to use a windows sed.exe file to do this, but now it's limited to select-string
 				#This will save on dependencies and headaches.
 				
-				$purl = select-string -Path $storageDir\Download.html -Pattern $dparse | % { $_.Matches} | % { $_.Value}
+				$purl = select-string -Path $storageDir\Download.html -Pattern $dparse | % { $_.Matches} | % { $_.Value} | Select -Skip 1
 				
                 Write-host "Downloading $dname"
                 Write-host "-------------------"
