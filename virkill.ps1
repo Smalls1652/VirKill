@@ -108,7 +108,7 @@ while ($i -le $dlinksarraylength)
 				$htmlfile = "$storageDir\Download.html"
                 $webclient.DownloadFile($dlink,$htmlfile)
 				
-				$purl = select-string -Path $storageDir\Download.html -Pattern $dparse | % { $_.Matches} | % { $_.Value}
+				$purl = select-string -Path $storageDir\Download.html -Pattern $dparse | % { $_.Matches} | % { $_.Value} | Select -Skip 1
 			
 				
                 $dfilename = "$storageDir\files\$dname.exe"
