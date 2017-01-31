@@ -7,6 +7,25 @@ $host.ui.RawUI.WindowTitle = "VirKill"
 $scriptpath = $MyInvocation.MyCommand.Path
 $storageDir = Split-Path $scriptpath
 
+$filesExist = Test-Path $storageDir\files\
+if ($dexist -eq "False")
+{
+    New-Item -type directory $storageDir\files\
+}
+
+
+function sMenu
+{
+    
+    Write-Host "VirKill Menu"
+    Write-Host "1. Run"
+    Write-Host '2. Update (Force)'
+    Write-Host "3. Copy"
+    Write-Host "0. Exit"
+}
+
+function mainRun
+{
 $webclient = New-Object System.Net.WebClient
 
 $error.clear()
@@ -151,3 +170,33 @@ while ($s -le $customdownloadlength)
                
                 $s++
         }
+}
+
+do
+{
+    sMenu
+    $input = Read-Host Enter menu option
+    switch ($input)
+    {
+        '1'{
+            cls
+            mainRun
+            New-Item -type directory C:\Users\$env:UserName\Desktop\VirKill\
+            Copy-Item $storageDir\files\* C:\Users\$env:UserName\Desktop\VirKill\
+            }
+        '2'{
+            cls
+            $force = $true
+            mainRun
+            }
+        '3'{
+            cls
+            New-Item -type directory C:\Users\$env:UserName\Desktop\VirKill\
+            Copy-Item $storageDir\files\* C:\Users\$env:UserName\Desktop\VirKill\
+            }            
+        '0'{
+            return
+            }
+    }
+}
+until ($input -eq '0')    
