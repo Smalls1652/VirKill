@@ -131,17 +131,23 @@ do
             runDownload
             New-Item -type directory C:\Users\$env:UserName\Desktop\VirusTools\ | Out-Null
             Copy-Item $storageDir\files\* C:\Users\$env:UserName\Desktop\VirusTools\
+            Invoke-Item C:\Users\$env:UserName\Desktop\VirusTools\
+            cls
+
             }
         '2'{
             cls
             $force = $true
             mainRun
             runDownload
+            cls
             }
         '3'{
             cls
             New-Item -type directory C:\Users\$env:UserName\Desktop\VirusTools\ | Out-Null
             Copy-Item $storageDir\files\* C:\Users\$env:UserName\Desktop\VirusTools\
+            Invoke-Item C:\Users\$env:UserName\Desktop\VirusTools\
+            cls
             }            
         '0'{
             return
