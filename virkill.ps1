@@ -8,12 +8,11 @@ $host.ui.RawUI.WindowTitle = "VirKill"
 $scriptpath = $MyInvocation.MyCommand.Path
 $storageDir = Split-Path $scriptpath
 
-$filesExist = Test-Path $storageDir\files\
-if ($dexist -eq "False")
+$filesExist = Test-Path $storageDir\files
+if (!$filesExist)
 {
-    New-Item -type directory $storageDir\files\
+    New-Item -type directory $storageDir\files -force | Out-Null
 }
-
 
 function sMenu
 {
@@ -130,7 +129,7 @@ do
             cls
             mainRun
             runDownload
-            New-Item -type directory C:\Users\$env:UserName\Desktop\VirusTools\
+            New-Item -type directory C:\Users\$env:UserName\Desktop\VirusTools\ | Out-Null
             Copy-Item $storageDir\files\* C:\Users\$env:UserName\Desktop\VirusTools\
             }
         '2'{
@@ -141,7 +140,7 @@ do
             }
         '3'{
             cls
-            New-Item -type directory C:\Users\$env:UserName\Desktop\VirusTools\
+            New-Item -type directory C:\Users\$env:UserName\Desktop\VirusTools\ | Out-Null
             Copy-Item $storageDir\files\* C:\Users\$env:UserName\Desktop\VirusTools\
             }            
         '0'{
