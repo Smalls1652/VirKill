@@ -1,0 +1,10 @@
+﻿Name,DownloadLink,DownloadParse,EXEName,Type
+ComboFix,http://www.bleepingcomputer.com/download/combofix/dl/12/,https://download.bleepingcomputer.com/dl/+[\w-]+(/[\w- ./?%&=]*)*/ComboFix.exe,,Bleeping
+AdwCleaner,http://www.bleepingcomputer.com/download/adwcleaner/dl/125/,https://download.bleepingcomputer.com/dl/+[\w-]+(/[\w- ./?%&=]*)*/AdwCleaner.exe,,Bleeping
+rkill,http://www.bleepingcomputer.com/download/rkill/dl/10/,https://download.bleepingcomputer.com/dl/+[\w-]+(/[\w- ./?%&=]*)*/rkill.exe,,Bleeping
+MiniToolBox,http://www.bleepingcomputer.com/download/minitoolbox/dl/65/,https://download.bleepingcomputer.com/dl/+[\w-]+(/[\w- ./?%&=]*)*/MiniToolBox.exe,,Bleeping
+JRT,http://www.bleepingcomputer.com/download/junkware-removal-tool/dl/293/,https://download.bleepingcomputer.com/dl/+[\w-]+(/[\w- ./?%&=]*)*/JRT.exe,,Bleeping
+HijackThis,http://www.bleepingcomputer.com/download/hijackthis/dl/89/,https://download.bleepingcomputer.com/dl/+[\w-]+(/[\w- ./?%&=]*)*/HijackThis.exe,,Bleeping
+EmsisoftEmergencyToolkit,http://dl.emsisoft.com/EmsisoftEmergencyKit.exe,,EmsisoftEmergencyToolkit,Custom
+Malwarebytes,https://downloads.malwarebytes.org/file/mbam_current/,,mbam-setup,Custom
+Malwarebytes Definitions,http://data.mbamupdates.com/tools/mbam-rules.exe,,mbam-rules,Custom
